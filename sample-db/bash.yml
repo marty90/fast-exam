@@ -1,0 +1,29 @@
+- question: Il comando \texttt{ls} serve per
+  type: quiz
+  options:
+  - Listare il contenuto di una cartella
+  - Listare i processi attivi
+  - Listare le righe di un file
+  - Cercare all'interno di una cartella
+  solution: 0
+  type: quiz
+- question: Il comando \texttt{ps} serve per
+  type: quiz
+  options:
+  - Convertire un documento in formato ``ps''
+  - Listare i processi attivi
+  - Posticipare l'esecuzione di un comando
+  - Listare i programmi disponibili
+  solution: 1
+- question: |
+    Il seguente script
+    \begin{verbatim}
+    ls | wc -l
+    \end{verbatim}
+  type: quiz
+  options:
+  - Conta il numero di file nel pc
+  - Stampa il numero di file nella cartella corrente
+  - Stampa il numero di processi attivi
+  - Stampa il numero di sotto-cartelle
+  solution: 1

@@ -1,0 +1,6 @@
+- question: Si descriva la differenza tra multi-processing e multi-threading
+  type: open
+  height: 5cm
+- question: Si descriva il funzionamento di un semaforo
+  type: open
+  height: 5cm

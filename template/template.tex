@@ -1,0 +1,79 @@
+\documentclass{exam}
+
+\usepackage{xcolor}
+\newcommand{\makenonemptybox}[2]{
+\par\nobreak\vspace{\ht\strutbox}\noindent
+\fbox{
+\parbox[c][\dimexpr#1-2\fboxsep][t]{\dimexpr\linewidth-2\fboxsep}{
+  \hrule width \hsize height 0pt
+  #2
+ }
+}
+\par\vspace{\ht\strutbox}
+}
+\makeatother
+
+\begin{document}
+
+\begin{center}
+\fbox{\parbox{5.5in}{\centering \large
+{{course}} \\ {{strings["date"]}}: {{date}} -- \textbf{ {{strings["version"]}}: {{version}} }  }}
+\end{center}
+
+
+\vspace{5mm}
+\makebox[0.75\textwidth]{ {{strings["name"]}}:\enspace\hrulefill}
+
+\vspace{5mm}
+\makebox[0.75\textwidth]{ {{strings["id"]}}:\enspace\hrulefill}
+
+
+
+\vspace{5mm}
+\noindent
+\textbf{{ "{" }}{{strings["instructions"]}}:}\\
+{{disclaimer}}
+
+{% if solution %}
+    \printanswers
+    {% set letters = 'ABCDEFG' %}
+    \color{blue}
+    \vspace{5mm}
+    \noindent
+    \textbf{{ "{" }}{{strings["solution"]}}:} \\
+    {% for question in questions -%}
+        {% if question.type == "quiz" -%}
+            {{loop.index}}{{ letters[question.solution]}}
+        {% else -%}
+            {{loop.index}}-
+        {% endif -%}
+    {% endfor -%}
+    \color{black}
+{% endif %}
+
+\begin{questions}
+
+{% for question in questions %}
+    \question {{question.question}}
+
+    {% if question.type == "quiz" %}
+        \begin{choices}
+        {% for option in question.options %}
+            {% if solution and loop.index == question.solution +1 %}
+                \CorrectChoice {{option}}
+            {% else %}
+                \choice {{option}}
+            {% endif %}
+        {% endfor %}
+        \end{choices}
+    {% elif question.type == "open" %}
+        \makenonemptybox{ {{question.height}} }{}
+    {% endif %}
+
+{% endfor %}
+
+
+\end{questions}
+
+
+\end{document}

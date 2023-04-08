@@ -1,0 +1,17 @@
+- question: Una System Call
+  type: quiz
+  options:
+  - Viene usata da un processo per richiedere una funzionalità del sistema operativo
+  - Viene usata da un processo per richiedere usare un a funzione di libreria
+  - Viene usata dal sistema operativo per monitorare i processi
+  - Viene usata dal sistema operativo per gestire i module del kernel
+  solution: 0
+  type: quiz
+- question: Una funzione di libreria
+  type: quiz
+  options:
+  - E' eseguita in modalità kernel
+  - E' eseguita in modalità utente
+  - Utilizza sempre una System Call
+  - Permette alle System Call di essere richiamate dai processi
+  solution: 1

@@ -1,0 +1,109 @@
+#!/usr/bin/env python3
+
+from jinja2 import Environment, FileSystemLoader
+from string import ascii_uppercase
+import argparse
+import random
+import math
+import time
+import glob
+import yaml
+import os
+
+strings = {"IT": {"name": "Nome e Cognome", "id": "Matricola",
+                  "date": "Data", "version": "Fila",
+                  "instructions": "Istruzioni", "solution": "Soluzione"},
+           "EN": {"name": "First and Last Name", "id": "Student ID",
+                  "date": "Date", "version": "Version",
+                  "instructions": "Instructions", "solution": "Solution"}
+            }
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--date', type=str, default='13 Giugno 2023')
+parser.add_argument('--course', type=str, default='Sistemi Operativi')
+parser.add_argument('--db', type=str, default='sample-db')
+parser.add_argument('--versions', type=int, default=2)
+parser.add_argument('--structure', type=str, default="general:1,bash:1,open:1")
+parser.add_argument('--outdir', type=str, default="output")
+parser.add_argument('--quizbegin', action='store_true')
+parser.add_argument('--quizrandom', action='store_true')
+parser.add_argument('--lang', type=str, default='IT')
+parser.add_argument('--seed', type=int, default=time.time())
+parser.add_argument('--template', type=str, default="template.tex")
+parser.add_argument('--disclaimer', type=str, default="Per ogni domanda aperta, nel caso si ritenga che manchino delle informazioni o ipotesi necessarie, le si esplicitino nello svolgimento. Si scriva nel riquadro, usando una calligrafia e una dimensione del testo che permettano una lettura agevole.")
+
+# Set globals
+globals().update(vars(parser.parse_args()))
+random.seed(seed)
+
+def main():
+
+    # Load DB
+    questions = {}
+    for f in glob.glob(f"{db}/*.yml"):
+        section = os.path.basename(f).split(".")[0]
+        questions[section] = yaml.safe_load(open(f,"r"))
+
+    # Parse structure
+    parts =[]
+    for part in structure.split(","):
+        section, count = part.split(":")
+        parts.append( (section,int(count)) )
+
+    # Choose questions
+    selected = []
+    for section, count in parts:
+        selected += random.sample(questions[section],count)
+
+    # Make output directory
+    os.makedirs(outdir, exist_ok=True)
+
+    # Create versions
+    for letter in ascii_uppercase[:versions]:
+        random.shuffle(selected)
+
+        # Randomize answers to quiz
+        if quizrandom:
+            for q in selected:
+                if q["type"]=="quiz":
+                    correct_sol = q["options"][q["solution"]]
+                    random.shuffle(q["options"])
+                    q["solution"] = q["options"].index(correct_sol)
+
+        # Quiz first if quizbegin is set
+        selected_quiz = []
+        selected_other = []
+        if quizbegin:
+            for q in selected:
+                if q["type"]=="quiz":
+                    selected_quiz.append(q)
+                else: 
+                    selected_other.append(q)
+            selected = selected_quiz
+            selected += selected_other
+
+        environment = Environment(loader=FileSystemLoader("template"))
+        template_obj = environment.get_template(template)
+
+        # Test
+        content = template_obj.render(date=date, course=course, disclaimer=disclaimer,
+                                      version = letter, questions = selected,
+                                      solution=False, strings=strings[lang])
+
+        print(content, file=open(f"{outdir}/test-{date}-vers-{letter}.tex", "w"))
+        os.system(f"pdflatex -output-directory='{outdir}' '{outdir}/test-{date}-vers-{letter}.tex'")
+        os.system(f"rm '{outdir}/test-{date}-vers-{letter}.log' '{outdir}/test-{date}-vers-{letter}.aux' '{outdir}/test-{date}-vers-{letter}.tex'")
+
+        # Solution
+        content = template_obj.render(date=date, course=course, disclaimer=disclaimer,
+                                      version = letter, questions = selected,
+                                      solution=True, strings=strings[lang])
+
+        print(content, file=open(f"{outdir}/test-{date}-vers-{letter}-solution.tex", "w"))
+        os.system(f"pdflatex -output-directory='{outdir}' '{outdir}/test-{date}-vers-{letter}-solution.tex'")
+        os.system(f"rm '{outdir}/test-{date}-vers-{letter}-solution.log' '{outdir}/test-{date}-vers-{letter}-solution.aux' '{outdir}/test-{date}-vers-{letter}-solution.tex'")
+
+if __name__ == "__main__":
+    main()
+
+
