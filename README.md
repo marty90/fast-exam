@@ -36,18 +36,18 @@ quiz-builder [-h] [--date DATE] [--course COURSE] [--db DB] [--versions VERSIONS
 ```
 
 The option are:
--`-h, --help`            Show Help
--`--course COURSE` The name of the course
--`--db DB` The folder of the quiz DB
--`--versions VERSIONS` How many versions of the exam to create
--`--structure STRUCTURE` How to sample the DB. In the form of *group*:n,*group*:n. E.g., `general:1,bash:1,open:1`
--`--outdir OUTDIR` Where to save PDFs
--`--quizbegin` If set, put all quiz before open questions
--`--quizrandom` If set, randomize quiz aswer order
--`--lang LANG` Language. Supported IT and EN
--`--seed SEED` Seed of the `random`
--`--template TEMPLATE` Template to use. Defaults to 'template.tex'
--`--disclaimer DISCLAIMER` Instructions for the exam to print in the PDF
+- `-h, --help`            Show Help
+- `--course COURSE` The name of the course
+- `--db DB` The folder of the quiz DB
+- `--versions VERSIONS` How many versions of the exam to create
+- `--structure STRUCTURE` How to sample the DB. In the form of *group*:n,*group*:n. E.g., `general:1,bash:1,open:1`
+- `--outdir OUTDIR` Where to save PDFs
+- `--quizbegin` If set, put all quiz before open questions
+- `--quizrandom` If set, randomize quiz aswer order
+- `--lang LANG` Language. Supported IT and EN
+- `--seed SEED` Seed of the `random`
+- `--template TEMPLATE` Template to use. Defaults to 'template.tex'
+- `--disclaimer DISCLAIMER` Instructions for the exam to print in the PDF
 
 ## Operation
 
