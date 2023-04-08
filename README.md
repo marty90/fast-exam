@@ -1,10 +1,19 @@
 # Quiz Builder
 
-Create randomized exams based on a bank of exercizes.
+Create randomized exams based on a bank of exercises.
+Try it with:
+```
+./quiz-builder --quizbegin --quizrandom
+```
+
+## Dependencies
+
+You need Python3 and Latex installed, on a Linux or MacOS machine.
+You need the `pyyaml jinja2`
 
 ## Database
 
-The program runson a databse of quiz and open questions.
+The program runs on a database of quiz and open questions.
 The database is contained in a folder. Each file contains a *group* of questions.
 
 Questions can be quiz, in the form:
