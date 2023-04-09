@@ -1,6 +1,8 @@
 - question: Si descriva la differenza tra multi-processing e multi-threading
   type: open
   height: 5cm
+  solution: Coi thread la memoria é condivisa # Solution is optional
 - question: Si descriva il funzionamento di un semaforo
   type: open
   height: 5cm
+  solution: Una variabile intera condivisas

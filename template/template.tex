@@ -66,8 +66,8 @@
             {% endif %}
         {% endfor %}
         \end{choices}
-    {% elif question.type == "open" %}
-        \makenonemptybox{ {{question.height}} }{}
+    {% elif question.type == "open" or question.type == "exercize"%}
+        \makenonemptybox{ {{question.height}} }{ {% if solution -%} \color{blue} {{question.solution}} {% endif %} }
     {% endif %}
 
 {% endfor %}

@@ -17,16 +17,18 @@ strings = {"IT": {"name": "Nome e Cognome", "id": "Matricola",
                   "date": "Date", "version": "Version",
                   "instructions": "Instructions", "solution": "Solution"}
             }
+DEFAULT_HEIGHT="5cm"
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--date', type=str, default='13 Giugno 2023')
 parser.add_argument('--course', type=str, default='Sistemi Operativi')
 parser.add_argument('--db', type=str, default='sample-db')
 parser.add_argument('--versions', type=int, default=2)
-parser.add_argument('--structure', type=str, default="general:1,bash:1,open:1")
+parser.add_argument('--structure', type=str, default="general:1,bash:1,open:1,exercize-vm:1")
 parser.add_argument('--outdir', type=str, default="output")
 parser.add_argument('--quizbegin', action='store_true')
 parser.add_argument('--quizrandom', action='store_true')
+parser.add_argument('--keeptex', action='store_true')
 parser.add_argument('--lang', type=str, default='IT')
 parser.add_argument('--seed', type=int, default=time.time())
 parser.add_argument('--template', type=str, default="template.tex")
@@ -55,6 +57,11 @@ def main():
     for section, count in parts:
         selected += random.sample(questions[section],count)
 
+    # Default height
+    for question in selected:
+        if question["type"] in {"open", "exercize"} and "height" not in question:
+            question["height"] = DEFAULT_HEIGHT
+
     # Make output directory
     os.makedirs(outdir, exist_ok=True)
 
@@ -82,6 +89,17 @@ def main():
             selected = selected_quiz
             selected += selected_other
 
+        # Invoke Exercizes
+        for question in selected:
+            if question["type"]=="exercize":
+                ns = {}
+                exec (question["handler"],ns)
+                text = ns["handler"]()
+                question["question"] = text["question"]
+                if "solution" in text:
+                    question["solution"] = text["solution"]
+
+        # Create the environment
         environment = Environment(loader=FileSystemLoader("template"))
         template_obj = environment.get_template(template)
 
@@ -101,7 +119,13 @@ def main():
 
         print(content, file=open(f"{outdir}/test-{date}-vers-{letter}-solution.tex", "w"))
         os.system(f"pdflatex -output-directory='{outdir}' '{outdir}/test-{date}-vers-{letter}-solution.tex'")
-        os.system(f"rm '{outdir}/test-{date}-vers-{letter}-solution.log' '{outdir}/test-{date}-vers-{letter}-solution.aux' '{outdir}/test-{date}-vers-{letter}-solution.tex'")
+        
+
+        # Clean Up
+        if keeptex:
+            os.system(f"rm '{outdir}/test-{date}-vers-{letter}-solution.log' '{outdir}/test-{date}-vers-{letter}-solution.aux'")
+        else:
+            os.system(f"rm '{outdir}/test-{date}-vers-{letter}-solution.log' '{outdir}/test-{date}-vers-{letter}-solution.aux' '{outdir}/test-{date}-vers-{letter}-solution.tex'")
 
 if __name__ == "__main__":
     main()
