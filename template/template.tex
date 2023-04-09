@@ -1,6 +1,7 @@
 \documentclass{exam}
 
 \usepackage{xcolor}
+\usepackage{tabularx}
 \newcommand{\makenonemptybox}[2]{
 \par\nobreak\vspace{\ht\strutbox}\noindent
 \fbox{
@@ -15,18 +16,22 @@
 
 \begin{document}
 
+\begin{large}  
 \begin{center}
-\fbox{\parbox{5.5in}{\centering \large
-{{course}} \\ {{strings["date"]}}: {{date}} -- \textbf{ {{strings["version"]}}: {{version}} }  }}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{0.9\linewidth}{|X|X|}
+\hline
+\multicolumn{2}{|c|}{\uppercase{ \bf {{institution}} }}\\ \hline
+\textbf{ {{strings["course"]}}:} {{course}} &
+\textbf{ {{strings["professor"]}}:} {{professor}}       \\ \hline
+\textbf{ {{strings["date"]}}:} {{date}}    &
+\textbf{ {{strings["version"]}}: {{version}}  }                       \\ \hline
+\multicolumn{2}{|l|}{\textbf{ {{strings["name"]}}:} } \\ \hline
+\multicolumn{2}{|l|}{\textbf{ {{strings["id"]}}: }   }       \\
+\hline
+\end{tabularx}
 \end{center}
-
-
-\vspace{5mm}
-\makebox[0.75\textwidth]{ {{strings["name"]}}:\enspace\hrulefill}
-
-\vspace{5mm}
-\makebox[0.75\textwidth]{ {{strings["id"]}}:\enspace\hrulefill}
-
+\end{large}  
 
 
 \vspace{5mm}

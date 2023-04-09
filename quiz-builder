@@ -12,16 +12,20 @@ import os
 
 strings = {"IT": {"name": "Nome e Cognome", "id": "Matricola",
                   "date": "Data", "version": "Fila",
-                  "instructions": "Istruzioni", "solution": "Soluzione"},
+                  "instructions": "Istruzioni", "solution": "Soluzione",
+                  "professor": "Professore", "course":"Corso"},
            "EN": {"name": "First and Last Name", "id": "Student ID",
                   "date": "Date", "version": "Version",
-                  "instructions": "Instructions", "solution": "Solution"}
+                  "instructions": "Instructions", "solution": "Solution",
+                  "professor": "Professor", "course":"Course"}
             }
 DEFAULT_HEIGHT="5cm"
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--date', type=str, default='13 Giugno 2023')
 parser.add_argument('--course', type=str, default='Sistemi Operativi')
+parser.add_argument('--professor', type=str, default='Martino Trevisan')
+parser.add_argument('--institution', type=str, default='Università di Trieste')
 parser.add_argument('--db', type=str, default='sample-db')
 parser.add_argument('--versions', type=int, default=2)
 parser.add_argument('--structure', type=str, default="general:1,bash:1,open:1,exercize-vm:1")
@@ -105,6 +109,7 @@ def main():
 
         # Test
         content = template_obj.render(date=date, course=course, disclaimer=disclaimer,
+                                      professor=professor, institution=institution,
                                       version = letter, questions = selected,
                                       solution=False, strings=strings[lang])
 
@@ -114,6 +119,7 @@ def main():
 
         # Solution
         content = template_obj.render(date=date, course=course, disclaimer=disclaimer,
+                                      professor=professor, institution=institution,
                                       version = letter, questions = selected,
                                       solution=True, strings=strings[lang])
 

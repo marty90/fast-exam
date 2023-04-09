@@ -48,7 +48,8 @@ The function must return a dictionary, with keys `question` and optionally `solu
 The function is invoked in the program for each **version**, to obtain programmatically an exercize. This is useful to have exercizes with **random** parameters for different versions.
 
 See `exercize-vm.yml` for a complete example. Fundamental code is below: 
-```
+
+```yaml
 - type: exercize
   height: 5cm
   handler: |
@@ -71,6 +72,8 @@ quiz-builder [-h] [--date DATE] [--course COURSE] [--db DB] [--versions VERSIONS
 The option are:
 - `-h, --help` Show Help
 - `--course COURSE` The name of the course
+- `--professor PROF` The name of the professor
+- `--institution INSTITUTION` The name of the institution
 - `--db DB` The folder of the quiz DB
 - `--versions VERSIONS` How many versions of the exam to create
 - `--structure STRUCTURE` How to sample the DB. In the form of *group*:n,*group*:n. E.g., `general:1,bash:1,open:1`
