@@ -44,6 +44,11 @@ random.seed(seed)
 
 def main():
 
+    # Check lang is supported
+    if not lang in strings:
+        print(f"Language {lang} not supported.")
+        return 1
+
     # Load DB
     questions = {}
     for f in glob.glob(f"{db}/*.yml"):
@@ -97,7 +102,7 @@ def main():
         for question in selected:
             if question["type"]=="exercize":
                 ns = {}
-                exec (question["handler"],ns)
+                exec (question["handler"], ns)
                 text = ns["handler"]()
                 question["question"] = text["question"]
                 if "solution" in text:
@@ -115,7 +120,12 @@ def main():
 
         print(content, file=open(f"{outdir}/test-{date}-vers-{letter}.tex", "w"))
         os.system(f"pdflatex -output-directory='{outdir}' '{outdir}/test-{date}-vers-{letter}.tex'")
-        os.system(f"rm '{outdir}/test-{date}-vers-{letter}.log' '{outdir}/test-{date}-vers-{letter}.aux' '{outdir}/test-{date}-vers-{letter}.tex'")
+        
+        # Clean Up
+        if keeptex:
+            os.system(f"rm '{outdir}/test-{date}-vers-{letter}.log' '{outdir}/test-{date}-vers-{letter}.aux'")
+        else:
+            os.system(f"rm '{outdir}/test-{date}-vers-{letter}.log' '{outdir}/test-{date}-vers-{letter}.aux' '{outdir}/test-{date}-vers-{letter}.tex'")
 
         # Solution
         content = template_obj.render(date=date, course=course, disclaimer=disclaimer,
