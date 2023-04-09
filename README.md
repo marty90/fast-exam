@@ -3,7 +3,7 @@
 Create randomized exams based on a bank of exercises.
 Try it with:
 ```
-./quiz-builder --quizbegin --quizrandom
+./quiz-builder --quizbegin --quizrandom --solutionsummary
 ```
 
 ## Dependencies
@@ -85,6 +85,7 @@ The option are:
 - `--template TEMPLATE` Template to use. Defaults to 'template.tex'
 - `--disclaimer DISCLAIMER` Instructions for the exam to print in the PDF
 - `--keeptex` Keep Latex source for further editing
+- `--solutionsummary` Print summary of the correct answers to quiz
 
 ## Operation
 

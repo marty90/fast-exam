@@ -32,6 +32,7 @@ parser.add_argument('--structure', type=str, default="general:1,bash:1,open:1,ex
 parser.add_argument('--outdir', type=str, default="output")
 parser.add_argument('--quizbegin', action='store_true')
 parser.add_argument('--quizrandom', action='store_true')
+parser.add_argument('--solutionsummary', action='store_true')
 parser.add_argument('--keeptex', action='store_true')
 parser.add_argument('--lang', type=str, default='IT')
 parser.add_argument('--seed', type=int, default=time.time())
@@ -116,7 +117,8 @@ def main():
         content = template_obj.render(date=date, course=course, disclaimer=disclaimer,
                                       professor=professor, institution=institution,
                                       version = letter, questions = selected,
-                                      solution=False, strings=strings[lang])
+                                      solution=False, solutionsummary=solutionsummary,
+                                      strings=strings[lang])
 
         print(content, file=open(f"{outdir}/test-{date}-vers-{letter}.tex", "w"))
         os.system(f"pdflatex -output-directory='{outdir}' '{outdir}/test-{date}-vers-{letter}.tex'")
@@ -131,7 +133,8 @@ def main():
         content = template_obj.render(date=date, course=course, disclaimer=disclaimer,
                                       professor=professor, institution=institution,
                                       version = letter, questions = selected,
-                                      solution=True, strings=strings[lang])
+                                      solution=True, solutionsummary=solutionsummary,
+                                      strings=strings[lang])
 
         print(content, file=open(f"{outdir}/test-{date}-vers-{letter}-solution.tex", "w"))
         os.system(f"pdflatex -output-directory='{outdir}' '{outdir}/test-{date}-vers-{letter}-solution.tex'")
