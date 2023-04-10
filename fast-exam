@@ -39,7 +39,7 @@ parser_2.add_argument('--template', type=str, default="template/template.tex", h
 parser_2.add_argument('--keeptex', action='store_true', help='Keep Latex source for further editing')
 parser_3 = parser.add_argument_group('Question Options')
 parser_3.add_argument('--randomorder', action='store_true', help='Randomize the order of questions')
-parser_3.add_argument('--solutionsummary', action='store_true', help='The date of the exam')
+parser_3.add_argument('--solutionsummary', action='store_true', help='Print summary of the correct answers to quiz')
 parser_3.add_argument('--quizbegin', action='store_true', help='Put all quiz before open questions')
 parser_3.add_argument('--quizrandom', action='store_true', help='Randomize quiz answer order')
 
