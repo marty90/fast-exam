@@ -1,4 +1,4 @@
-# Fast Exame
+# Fast Exam
 
 Create randomized exams based on a bank of exercises.
 Try it with:
