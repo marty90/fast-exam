@@ -71,6 +71,7 @@ fast-exam [-h] [--date DATE] [--course COURSE] [--db DB] [--versions VERSIONS] [
 
 The option are:
 - Exam Heading:
+  - `--date DATE` The date of the exam
   - `--course COURSE` The name of the course
   - `--professor PROF` The name of the professor
   - `--institution INSTITUTION` The name of the institution
@@ -78,7 +79,7 @@ The option are:
   - `--disclaimer DISCLAIMER` Instructions for the exam to print in the PDF
 - Exam Building:
   - `--db DB` The folder of the quiz DB
-  - `--structure STRUCTURE` How to sample the DB. In the form of *group*:n,*group*:n. E.g., `general:1,bash:1,open:1`
+  - `--structure STRUCTURE` How to sample the DB. Must be a list of group:n entries, separated by comma. E.g., `general:1,bash:1,open:1`
   - `--outdir OUTDIR` Where to save PDFs
   - `--lang LANG` Language. Supported IT and EN
   - `--seed SEED` Seed of the `random`

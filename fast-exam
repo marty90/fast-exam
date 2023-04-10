@@ -21,24 +21,27 @@ strings = {"IT": {"name": "Nome e Cognome", "id": "Matricola",
             }
 DEFAULT_HEIGHT="5cm"
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--date', type=str, default='13 Giugno 2023')
-parser.add_argument('--course', type=str, default='Sistemi Operativi')
-parser.add_argument('--professor', type=str, default='Martino Trevisan')
-parser.add_argument('--institution', type=str, default='Università di Trieste')
-parser.add_argument('--db', type=str, default='sample-db')
-parser.add_argument('--versions', type=int, default=2)
-parser.add_argument('--structure', type=str, default="general:1,bash:1,open:1,exercize-vm:1")
-parser.add_argument('--outdir', type=str, default="output")
-parser.add_argument('--quizbegin', action='store_true')
-parser.add_argument('--quizrandom', action='store_true')
-parser.add_argument('--randomorder', action='store_true')
-parser.add_argument('--solutionsummary', action='store_true')
-parser.add_argument('--keeptex', action='store_true')
-parser.add_argument('--lang', type=str, default='IT')
-parser.add_argument('--seed', type=int, default=time.time())
-parser.add_argument('--template', type=str, default="template.tex")
-parser.add_argument('--disclaimer', type=str, default="Per ogni domanda aperta, nel caso si ritenga che manchino delle informazioni o ipotesi necessarie, le si esplicitino nello svolgimento. Si scriva nel riquadro, usando una calligrafia e una dimensione del testo che permettano una lettura agevole.")
+parser = argparse.ArgumentParser(description='Create randomized exams based on a bank of exercises')
+parser_1 = parser.add_argument_group('Exam Heading')
+parser_1.add_argument('--date', type=str, default='13 Giugno 2023', help='The date of the exam')
+parser_1.add_argument('--course', type=str, default='Sistemi Operativi', help='The name of the course')
+parser_1.add_argument('--professor', type=str, default='Martino Trevisan', help='The name of the professor')
+parser_1.add_argument('--institution', type=str, default='Università di Trieste', help='The name of the university/institution')
+parser_1.add_argument('--versions', type=int, default=2, help='How many versions of the exam to create')
+parser_1.add_argument('--disclaimer', type=str, default="Per ogni domanda aperta, nel caso si ritenga che manchino delle informazioni o ipotesi necessarie, le si esplicitino nello svolgimento. Si scriva nel riquadro, usando una calligrafia e una dimensione del testo che permettano una lettura agevole.", help='Instructions for the exam to print in the PDF')
+parser_2 = parser.add_argument_group('Exam Building')
+parser_2.add_argument('--db', type=str, default='sample-db', help='The folder of the quiz DB')
+parser_2.add_argument('--structure', type=str, default="general:1,bash:1,open:1,exercize-vm:1", help='How to sample the DB. Must be a list of group:n entries, separated by comma. E.g., general:1,bash:1,open:1')
+parser_2.add_argument('--outdir', type=str, default="output", help='Where to save PDFs')
+parser_2.add_argument('--lang', type=str, default='IT', help='Language oh headings. Supported IT and EN')
+parser_2.add_argument('--seed', type=int, default=time.time(), help='Seed of the random package')
+parser_2.add_argument('--template', type=str, default="template/template.tex", help='Template to use. Defaults to "template/template.tex"')
+parser_2.add_argument('--keeptex', action='store_true', help='Keep Latex source for further editing')
+parser_3 = parser.add_argument_group('Question Options')
+parser_3.add_argument('--randomorder', action='store_true', help='Randomize the order of questions')
+parser_3.add_argument('--solutionsummary', action='store_true', help='The date of the exam')
+parser_3.add_argument('--quizbegin', action='store_true', help='Put all quiz before open questions')
+parser_3.add_argument('--quizrandom', action='store_true', help='Randomize quiz answer order')
 
 # Set globals
 globals().update(vars(parser.parse_args()))
@@ -114,10 +117,10 @@ def main():
                     question["solution"] = text["solution"]
 
         # Create the environment
-        environment = Environment(loader=FileSystemLoader("template"))
-        template_obj = environment.get_template(template)
+        environment = Environment(loader=FileSystemLoader(os.path.dirname(template)))
+        template_obj = environment.get_template(os.path.basename(template))
 
-        # Test
+        # Exam Text
         content = template_obj.render(date=date, course=course, disclaimer=disclaimer,
                                       professor=professor, institution=institution,
                                       version = letter, questions = selected,
