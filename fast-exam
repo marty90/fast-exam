@@ -32,6 +32,7 @@ parser.add_argument('--structure', type=str, default="general:1,bash:1,open:1,ex
 parser.add_argument('--outdir', type=str, default="output")
 parser.add_argument('--quizbegin', action='store_true')
 parser.add_argument('--quizrandom', action='store_true')
+parser.add_argument('--randomorder', action='store_true')
 parser.add_argument('--solutionsummary', action='store_true')
 parser.add_argument('--keeptex', action='store_true')
 parser.add_argument('--lang', type=str, default='IT')
@@ -77,7 +78,10 @@ def main():
 
     # Create versions
     for letter in ascii_uppercase[:versions]:
-        random.shuffle(selected)
+
+        # Randomize order
+        if randomorder:
+            random.shuffle(selected)
 
         # Randomize answers to quiz
         if quizrandom:

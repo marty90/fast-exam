@@ -1,9 +1,9 @@
-# Quiz Builder
+# Fast Exame
 
 Create randomized exams based on a bank of exercises.
 Try it with:
 ```
-./quiz-builder --quizbegin --quizrandom --solutionsummary
+./fast-exam --randomorder --quizbegin --quizrandom --solutionsummary
 ```
 
 ## Dependencies
@@ -64,28 +64,31 @@ See `exercize-vm.yml` for a complete example. Fundamental code is below:
 
 Run:
 ```
-quiz-builder [-h] [--date DATE] [--course COURSE] [--db DB] [--versions VERSIONS] [--structure STRUCTURE]
+fast-exam [-h] [--date DATE] [--course COURSE] [--db DB] [--versions VERSIONS] [--structure STRUCTURE]
                     [--outdir OUTDIR] [--quizbegin] [--quizrandom] [--lang LANG] [--seed SEED] [--template TEMPLATE]
                     [--disclaimer DISCLAIMER] [--keeptex]
 ```
 
 The option are:
-- `-h, --help` Show Help
-- `--course COURSE` The name of the course
-- `--professor PROF` The name of the professor
-- `--institution INSTITUTION` The name of the institution
-- `--db DB` The folder of the quiz DB
-- `--versions VERSIONS` How many versions of the exam to create
-- `--structure STRUCTURE` How to sample the DB. In the form of *group*:n,*group*:n. E.g., `general:1,bash:1,open:1`
-- `--outdir OUTDIR` Where to save PDFs
-- `--quizbegin` If set, put all quiz before open questions
-- `--quizrandom` If set, randomize quiz aswer order
-- `--lang LANG` Language. Supported IT and EN
-- `--seed SEED` Seed of the `random`
-- `--template TEMPLATE` Template to use. Defaults to 'template.tex'
-- `--disclaimer DISCLAIMER` Instructions for the exam to print in the PDF
-- `--keeptex` Keep Latex source for further editing
-- `--solutionsummary` Print summary of the correct answers to quiz
+- Exam Heading:
+  - `--course COURSE` The name of the course
+  - `--professor PROF` The name of the professor
+  - `--institution INSTITUTION` The name of the institution
+  - `--versions VERSIONS` How many versions of the exam to create
+  - `--disclaimer DISCLAIMER` Instructions for the exam to print in the PDF
+- Exam Building:
+  - `--db DB` The folder of the quiz DB
+  - `--structure STRUCTURE` How to sample the DB. In the form of *group*:n,*group*:n. E.g., `general:1,bash:1,open:1`
+  - `--outdir OUTDIR` Where to save PDFs
+  - `--lang LANG` Language. Supported IT and EN
+  - `--seed SEED` Seed of the `random`
+  - `--template TEMPLATE` Template to use. Defaults to 'template.tex'
+  - `--keeptex` Keep Latex source for further editing
+- Question options:
+  - `--randomorder` If set, randomize the order of questions
+  - `--quizbegin` If set, put all quiz before open questions
+  - `--quizrandom` If set, randomize quiz answer order
+  - `--solutionsummary` Print summary of the correct answers to quiz
 
 ## Operation
 
