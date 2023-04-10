@@ -40,8 +40,11 @@
 \textbf{{ "{" }}{{strings["instructions"]}}:}\\
 {{disclaimer}}
 
+{% if solution  %}
+\printanswers
+{% endif %}
+
 {% if solution and solutionsummary %}
-    \printanswers
     {% set letters = 'ABCDEFG' %}
     \color{blue}
     \vspace{5mm}
