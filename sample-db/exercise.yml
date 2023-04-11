@@ -1,0 +1,21 @@
+- type: exercise
+  height: 5cm
+  handler: |
+    import random
+    import math
+    def handler():
+        MEM_SIZE_GB=random.choice([2,4,8])
+        PAGE_SIZE_KB=random.choice([1,2,4])
+        PAGE_BIT=math.log2(PAGE_SIZE_KB*1024)
+        PAGE_NB=MEM_SIZE_GB*1024*1024/PAGE_SIZE_KB
+        QUESTION=fr"""A system has {MEM_SIZE_GB} GB of RAM
+        and Virtual Memory with {PAGE_SIZE_KB} kB pages.
+        \begin{{parts}}
+        \part Compute how many bits the page offset is.
+        \part Compute the number of pages of the system.
+        \end{{parts}}"""
+        ANSWER=fr"""\begin{{parts}}
+        \part Page Offset Bit $= log_2({PAGE_SIZE_KB} \cdot 1\,024) = {int(PAGE_BIT)}$~bit
+        \part Number of pages $= \frac{{ {MEM_SIZE_GB} \cdot 1024^2}}{{ {PAGE_SIZE_KB} }} = {int(PAGE_NB)}$
+        \end{{parts}}"""
+        return {"question": QUESTION, "solution": ANSWER}

@@ -63,6 +63,8 @@
 \begin{questions}
 
 {% for question in questions %}
+    \vspace{5mm}
+    \begin{minipage}{\linewidth}
     \question {{question.question}}
 
     {% if question.type == "quiz" %}
@@ -75,10 +77,10 @@
             {% endif %}
         {% endfor %}
         \end{choices}
-    {% elif question.type == "open" or question.type == "exercize"%}
+    {% elif question.type == "open" or question.type == "exercise"%}
         \makenonemptybox{ {{question.height}} }{ {% if solution -%} \color{blue} {{question.solution}} {% endif %} }
     {% endif %}
-
+    \end{minipage}
 {% endfor %}
 
 

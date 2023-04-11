@@ -1,8 +1,8 @@
-- question: Si descriva la differenza tra multi-processing e multi-threading
+- question: Describe the difference between the multi-process and multi-thread paradigm
   type: open
   height: 5cm
-  solution: Coi thread la memoria é condivisa # Solution is optional
-- question: Si descriva il funzionamento di un semaforo
+  solution: With multi-threading, memory is shared # Solution is optional
+- question: Describe the operation of a semaphore
   type: open
   height: 5cm
-  solution: Una variabile intera condivisa
+  solution: A shared `unsigned int` variable
