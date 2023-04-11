@@ -38,7 +38,6 @@ Questions of type `quiz` are classical closed-answer quiz. Fast Exam can shuffle
   - Option 1
   - Option 2
   solution: 1 # Index of correct answer. Index start from 0
-  type: quiz
 ```
 
 ### Open Questions

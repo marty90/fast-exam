@@ -6,7 +6,6 @@
   - Is used by the OS to schedule the active processes
   - Is used by the OS to orchestrate the kernel modules
   solution: 0
-  type: quiz
 - question: A library function
   type: quiz
   options:

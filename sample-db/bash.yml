@@ -6,7 +6,6 @@
   - List the rows of a file
   - Search in a folder
   solution: 0
-  type: quiz
 - question: The \texttt{ps} command is used to
   type: quiz
   options:
