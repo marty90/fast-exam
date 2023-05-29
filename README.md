@@ -102,6 +102,7 @@ The command-line options are:
   - `--quizbegin` If set, put all quiz before open questions
   - `--quizrandom` If set, randomize quiz answer order
   - `--solutionsummary` Print summary of the correct answers to quiz
+  - `--quizbox` Print a box where students must write answers to quiz, to ease the correction
 
 
 

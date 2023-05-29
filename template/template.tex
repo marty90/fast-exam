@@ -17,6 +17,8 @@
 
 \begin{document}
 
+
+
 \begin{large}  
 \begin{center}
 \renewcommand{\arraystretch}{1.2}
@@ -44,20 +46,34 @@
 \printanswers
 {% endif %}
 
-{% if solution and solutionsummary %}
+{% if solutionsummary or quizbox %}
     {% set letters = 'ABCDEFG' %}
-    \color{blue}
     \vspace{5mm}
-    \noindent
-    \textbf{{ "{" }}{{strings["solution"]}}:} \\
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{
     {% for question in questions -%}
-        {% if question.type == "quiz" -%}
-            {{loop.index}}{{ letters[question.solution]}}
+    |p{0.4cm}
+    {% endfor -%}
+    |p{0.8cm}| }
+
+     \hline
+    {% for question in questions -%}
+                {{loop.index}} &
+    {% endfor -%}
+    Tot
+    \\ 
+
+     \hline
+    {% for question in questions -%}
+        {% if question.type == "quiz" and solution and solutionsummary -%}
+            \textcolor{blue}{ {{letters[question.solution]}} } &
         {% else -%}
-            {{loop.index}}-
+            &
         {% endif -%}
     {% endfor -%}
-    \color{black}
+    \\ 
+    \hline
+    \end{tabular}
 {% endif %}
 
 \begin{questions}
