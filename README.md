@@ -103,6 +103,7 @@ The command-line options are:
   - `--quizrandom` If set, randomize quiz answer order
   - `--solutionsummary` Print summary of the correct answers to quiz
   - `--quizbox` Print a box where students must write answers to quiz, to ease the correction
+  - `--quizboxend` Print a box at the end of the document where students can write quiz answers and cut it to take home the quiz string.
 
 
 

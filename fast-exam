@@ -41,6 +41,7 @@ parser_3 = parser.add_argument_group('Question Options')
 parser_3.add_argument('--randomorder', action='store_true', help='Randomize the order of questions')
 parser_3.add_argument('--solutionsummary', action='store_true', help='Print summary of the correct answers to quiz')
 parser_3.add_argument('--quizbox', action='store_true', help='Print a box where students must write answers to quiz, to ease the correction')
+parser_3.add_argument('--quizboxend', action='store_true', help='Print a box at the end of the document where students can write quiz answers and cut it to take home the quiz string.')
 parser_3.add_argument('--quizbegin', action='store_true', help='Put all quiz before open questions')
 parser_3.add_argument('--quizrandom', action='store_true', help='Randomize quiz answer order')
 
@@ -126,7 +127,7 @@ def main():
                                       professor=professor, institution=institution,
                                       version = letter, questions = selected,
                                       solution=False, solutionsummary=solutionsummary,
-                                      quizbox=quizbox,
+                                      quizbox=quizbox, quizboxend=quizboxend,
                                       strings=strings[lang])
 
         print(content, file=open(f"{outdir}/test-{date}-vers-{letter}.tex", "w"))
@@ -143,7 +144,7 @@ def main():
                                       professor=professor, institution=institution,
                                       version = letter, questions = selected,
                                       solution=True, solutionsummary=solutionsummary,
-                                      quizbox=quizbox,
+                                      quizbox=quizbox, quizboxend=quizboxend,
                                       strings=strings[lang])
 
         print(content, file=open(f"{outdir}/test-{date}-vers-{letter}-solution.tex", "w"))

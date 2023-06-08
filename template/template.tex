@@ -103,4 +103,38 @@
 \end{questions}
 
 
+{% if solutionsummary or quizbox %}
+    {% set letters = 'ABCDEFG' %}
+    \begin{table*}[!b]
+    \vspace{5mm}
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{
+    {% for question in questions -%}
+    |p{0.4cm}
+    {% endfor -%}
+    |p{0.8cm}| }
+
+     \hline
+    {% for question in questions -%}
+                {{loop.index}} &
+    {% endfor -%}
+    Tot
+    \\ 
+
+     \hline
+    {% for question in questions -%}
+        {% if question.type == "quiz" and solution and solutionsummary -%}
+            \textcolor{blue}{ {{letters[question.solution]}} } &
+        {% else -%}
+            &
+        {% endif -%}
+    {% endfor -%}
+    \\ 
+    \hline
+    \end{tabular}
+    \end{table*}
+{% endif %}
+
+
+
 \end{document}
