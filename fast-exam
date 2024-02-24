@@ -82,7 +82,10 @@ def main():
     # Code style
     for question in selected:
         if question["type"] == "open" and "codestyle" in question and question["codestyle"]:
-            question["solution"] = r"\setstretch{0.8}\texttt{\small" + tex_escape(question["solution"]) + r"}"
+            fontsize=question.get("solutionfontsize", 10)
+            question["solution"] = r"\setstretch{" + str(float(fontsize)/64) + r"}\texttt{" + \
+                                   r"{\fontsize{" + str(fontsize) + r"}{"+ str(fontsize) + r"}\selectfont " + \
+                                   tex_escape(question["solution"]) + r"}}"
 
     # Make output directory
     os.makedirs(outdir, exist_ok=True)

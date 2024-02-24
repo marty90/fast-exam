@@ -41,7 +41,7 @@ Questions of type `quiz` are classical closed-answer quiz. Fast Exam can shuffle
 ```
 
 ### Open Questions
-Questions of type `open` are classical open-answer questions, where a blank space is left for the answer. Fast Exam can optionally print a solution text in the solution PDF. Set `codestyle: true` if the solution is code, thus must be escaped and printed within as `texttt`.
+Questions of type `open` are classical open-answer questions, where a blank space is left for the answer. Fast Exam can optionally print a solution text in the solution PDF. Set `codestyle: true` if the solution is a piece code, thus must be printed as `texttt` and escaping Latex syntax. You can set `solutionfontsize: N` to print the solution at `<N>`pt (default is 10).
 
 ```yaml
 - question: Text of the exercise
