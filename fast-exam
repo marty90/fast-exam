@@ -82,7 +82,7 @@ def main():
     # Code style
     for question in selected:
         if question["type"] == "open" and "codestyle" in question and question["codestyle"]:
-            question["solution"] = r"\begin{texttt} " + tex_escape(question["solution"]) + r"\end{texttt} "
+            question["solution"] = r"\setstretch{0.8}\texttt{\small" + tex_escape(question["solution"]) + r"}"
 
     # Make output directory
     os.makedirs(outdir, exist_ok=True)
@@ -171,6 +171,7 @@ def tex_escape(text):
         :param text: a plain text message
         :return: the message escaped to appear correctly in LaTeX
     """
+    print(text)
     conv = {
         '&': r'\&',
         '%': r'\%',
@@ -187,7 +188,8 @@ def tex_escape(text):
     }
     regex = re.compile('|'.join(re.escape(str(key)) for key in sorted(conv.keys(), key = lambda item: - len(item))))
     text = regex.sub(lambda match: conv[match.group()], text)
-    text.replace('\n','\\\\ \n')
+    text = text.replace('\n','\\newline\n').replace(" ", r"\hspace*{1.0ex}")
+    return text
 
 if __name__ == "__main__":
     main()
