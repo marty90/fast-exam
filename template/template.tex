@@ -59,7 +59,9 @@
 
      \hline
     {% for question in questions -%}
+        {% if question.type == "quiz" -%}
                 {{loop.index}} &
+        {% endif -%} 
     {% endfor -%}
     Tot
     \\ 
@@ -68,8 +70,6 @@
     {% for question in questions -%}
         {% if question.type == "quiz" and solution and solutionsummary -%}
             \textcolor{blue}{ {{letters[question.solution]}} } &
-        {% else -%}
-            &
         {% endif -%}
     {% endfor -%}
     \\ 
@@ -104,7 +104,7 @@
 \end{questions}
 
 
-{% if solutionsummary or quizbox %}
+{% if quizboxend %}
     {% set letters = 'ABCDEFG' %}
     \begin{table*}[!b]
     \vspace{5mm}
