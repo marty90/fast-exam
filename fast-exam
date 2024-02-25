@@ -202,7 +202,7 @@ def tex_escape(text):
     }
     regex = re.compile('|'.join(re.escape(str(key)) for key in sorted(conv.keys(), key = lambda item: - len(item))))
     text = regex.sub(lambda match: conv[match.group()], text)
-    text = text.replace('\n','\\newline\n').replace(" ", r"\hspace*{1.0ex}")
+    text = text.replace('\n','\\\\~\\\\').replace(" ", r"\hspace*{1.0ex}")
     return text
 
 if __name__ == "__main__":
