@@ -23,7 +23,9 @@ Each file contains one or more questions, and all questions in a file build a **
 
 Fast Exam selects a certain number of questions from each section as configured by the user.
 This is done with `--structure STRUCTURE` command-line switch.
-The `STRUCTURE` must be a comma separated list of entries, each in the form `group:N`, where `group` indicates from which group to sample questions and `N` indicates how many. Fro example: if `STRUCTURE` is `bash:2,general:2`, Fast Exam creates an exam with 2 questions chosen randomly from the `bash` group (in the `bash.yml` file) and 2 questions from the `general` group (in the `general.yml` file)
+The `STRUCTURE` must be a comma separated list of entries, each in the form `group:N`, where `group` indicates from which group to sample questions and `N` indicates how many. Fro example: if `STRUCTURE` is `bash:2,general:2`, Fast Exam creates an exam with 2 questions chosen randomly from the `bash` group (in the `bash.yml` file) and 2 questions from the `general` group (in the `general.yml` file).
+
+Alternatively, you can cherry pick questions from the DB. To this end, the structure entry must be in the form `group:+i+j+...`, which means that the test will include questions having index `i`, `j`, etc, in the database file. Notice that question index starts from 0.
 
 Then, Fast Exam creates a configurable number of different versions of the exam by shuffling the questions and optionally the quiz answers.
 
@@ -41,7 +43,7 @@ Questions of type `quiz` are classical closed-answer quiz. Fast Exam can shuffle
 ```
 
 ### Open Questions
-Questions of type `open` are classical open-answer questions, where a blank space is left for the answer. Fast Exam can optionally print a solution text in the solution PDF. Set `codestyle: true` if the solution is a piece code, thus must be printed as `texttt` and escaping Latex syntax. You can set `solutionfontsize: N` to print the solution at `<N>`pt (default is 10).
+Questions of type `open` are classical open-answer questions, where a blank space is left for the answer. Fast Exam can optionally print a solution text in the solution PDF. Set `codestyle: true` if the solution is a piece code, thus must be printed as `texttt` and escaping Latex syntax. You can set `solutionfontsize: N` to print the solution with font size of `<N>`pt (default is 10).
 
 ```yaml
 - question: Text of the exercise

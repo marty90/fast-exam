@@ -67,19 +67,30 @@ def main():
     parts =[]
     for part in structure.split(","):
         section, count = part.split(":")
-        parts.append( (section,int(count)) )
+        # Handle Cherry Pick questions, starting by "+"
+        if count.startswith("+"):
+            count = [ int(e) for e in count.split("+")[1:] ]
+            parts.append( (section,count) )
+        else:
+            parts.append( (section,int(count)) )
 
     # Choose questions
     selected = []
     for section, count in parts:
-        selected += random.sample(questions[section],count)
+        # Sample
+        if type(count)==int:
+            selected += random.sample(questions[section],count)
+        # Cherry Pick
+        elif type(count)==list:
+            for i in count:
+                selected.append(questions[section][i])
 
     # Default height
     for question in selected:
         if question["type"] in {"open", "exercise"} and "height" not in question:
             question["height"] = DEFAULT_HEIGHT
 
-    # Code style
+    # Code style for solutions
     for question in selected:
         if question["type"] == "open" and "codestyle" in question and question["codestyle"]:
             fontsize=question.get("solutionfontsize", 10)
