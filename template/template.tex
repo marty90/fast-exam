@@ -70,7 +70,7 @@
     {% for question in questions -%}
         {% if question.type == "quiz" and solution and solutionsummary -%}
             \textcolor{blue}{ {{letters[question.solution]}} } &
-        {% else %}
+        {% elif question.type == "quiz"-%}
             &
         {% endif -%}
     {% endfor -%}
@@ -128,7 +128,7 @@
     {% for question in questions -%}
         {% if question.type == "quiz" and solution and solutionsummary -%}
             \textcolor{blue}{ {{letters[question.solution]}} } &
-        {% else -%}
+        {% elif question.type == "quiz"-%}
             &
         {% endif -%}
     {% endfor -%}
