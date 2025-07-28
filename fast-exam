@@ -29,6 +29,7 @@ parser_1.add_argument('--course', type=str, default='Operating Systems', help='T
 parser_1.add_argument('--professor', type=str, default='Martino Trevisan', help='The name of the professor')
 parser_1.add_argument('--institution', type=str, default='Università di Trieste', help='The name of the university/institution')
 parser_1.add_argument('--versions', type=int, default=2, help='How many versions of the exam to create')
+parser_1.add_argument('--latexbegin', type=str, default="", help='Latex code to insert after \\begin{document}')
 parser_1.add_argument('--disclaimer', type=str, default="For each open question, please clearly write any assumption you make. Write in the given box using a comprehensible handwriting.", help='Instructions for the exam to print in the PDF') # Italian version: Per ogni domanda aperta, nel caso si ritenga che manchino delle informazioni o ipotesi necessarie, le si esplicitino nello svolgimento. Si scriva nel riquadro, usando una calligrafia e una dimensione del testo che permettano una lettura agevole.
 parser_2 = parser.add_argument_group('Exam Building')
 parser_2.add_argument('--db', type=str, default='sample-db', help='The folder of the quiz DB')
@@ -162,7 +163,7 @@ def main():
         # Solution
         content = template_obj.render(date=date, course=course, disclaimer=disclaimer,
                                       professor=professor, institution=institution,
-                                      version = letter, questions = selected,
+                                      version = letter, questions = selected, latexbegin=latexbegin,
                                       solution=True, solutionsummary=solutionsummary,
                                       quizbox=quizbox, quizboxend=quizboxend,
                                       strings=strings[lang])

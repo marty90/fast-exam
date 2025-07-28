@@ -90,6 +90,7 @@ The command-line options are:
   - `--professor PROF` The name of the professor
   - `--institution INSTITUTION` The name of the institution
   - `--versions VERSIONS` How many versions of the exam to create
+  - `--latexbegin CODE` Latex code to insert after \begin{document}
   - `--disclaimer DISCLAIMER` Instructions for the exam to print in the PDF
 - Exam Building:
   - `--db DB` The folder of the quiz DB
